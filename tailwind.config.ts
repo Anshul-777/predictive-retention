@@ -19,6 +19,12 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "churn-low": "hsl(var(--churn-low))",
+        "churn-low-bg": "hsl(var(--churn-low-bg))",
+        "churn-medium": "hsl(var(--churn-medium))",
+        "churn-medium-bg": "hsl(var(--churn-medium-bg))",
+        "churn-high": "hsl(var(--churn-high))",
+        "churn-high-bg": "hsl(var(--churn-high-bg))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
