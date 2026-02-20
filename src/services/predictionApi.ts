@@ -39,26 +39,28 @@ export interface PredictionResult {
 export async function predictChurn(data: CustomerFormData): Promise<PredictionResult> {
   // Map React camelCase form fields → exact Python Pydantic field names
   const payload = {
-    gender: data.gender,
-    SeniorCitizen: data.seniorCitizen,
-    Partner: data.partner,
-    Dependents: data.dependents,
-    tenure: data.tenure,
-    PhoneService: data.phoneService,
-    MultipleLines: data.multipleLines,
-    InternetService: data.internetService,
-    OnlineSecurity: data.onlineSecurity,
-    OnlineBackup: data.onlineBackup,
-    DeviceProtection: data.deviceProtection,
-    TechSupport: data.techSupport,
-    StreamingTV: data.streamingTV,
-    StreamingMovies: data.streamingMovies,
-    Contract: data.contract,
-    PaperlessBilling: data.paperlessBilling,
-    PaymentMethod: data.paymentMethod,
-    MonthlyCharges: data.monthlyCharges,
-    TotalCharges: data.tenure * data.monthlyCharges,
+    gender: String(data.gender),
+    SeniorCitizen: Number(data.seniorCitizen),
+    Partner: String(data.partner),
+    Dependents: String(data.dependents),
+    tenure: Number(data.tenure),
+    PhoneService: String(data.phoneService),
+    MultipleLines: String(data.multipleLines),
+    InternetService: String(data.internetService),
+    OnlineSecurity: String(data.onlineSecurity),
+    OnlineBackup: String(data.onlineBackup),
+    DeviceProtection: String(data.deviceProtection),
+    TechSupport: String(data.techSupport),
+    StreamingTV: String(data.streamingTV),
+    StreamingMovies: String(data.streamingMovies),
+    Contract: String(data.contract),
+    PaperlessBilling: String(data.paperlessBilling),
+    PaymentMethod: String(data.paymentMethod),
+    MonthlyCharges: Number(data.monthlyCharges),
+    TotalCharges: Number(data.tenure) * Number(data.monthlyCharges),
   };
+
+  console.log('Sending payload to backend:', JSON.stringify(payload, null, 2));
 
   const response = await fetch(PROXY_URL, {
     method: "POST",
