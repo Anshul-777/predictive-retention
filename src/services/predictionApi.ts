@@ -1,6 +1,5 @@
 // src/services/predictionApi.ts
 
-// Pointing to local FastAPI. Change to your live URL upon deployment.
 export const API_BASE_URL = "http://localhost:8000"; 
 
 export interface CustomerFormData {
@@ -32,7 +31,7 @@ export interface PredictionResult {
 }
 
 export async function predictChurn(data: CustomerFormData): Promise<PredictionResult> {
-  // 1. Map React camelCase to FastAPI PascalCase/camelCase payload
+  // Map React form data to the exact schema your main.py CustomerData class expects
   const payload = {
     gender: data.gender,
     SeniorCitizen: data.seniorCitizen,
@@ -52,10 +51,11 @@ export async function predictChurn(data: CustomerFormData): Promise<PredictionRe
     PaperlessBilling: data.paperlessBilling,
     PaymentMethod: data.paymentMethod,
     MonthlyCharges: data.monthlyCharges,
+    // Inject the missing required variable by calculating it here
+    TotalCharges: data.tenure * data.monthlyCharges, 
   };
 
   try {
-    // 2. Execute network request
     const response = await fetch(`${API_BASE_URL}/predict`, {
       method: "POST",
       headers: {
@@ -64,50 +64,24 @@ export async function predictChurn(data: CustomerFormData): Promise<PredictionRe
       body: JSON.stringify(payload),
     });
 
-    // 3. Robust Error Handling for Server Crashes or Validation Errors
     if (!response.ok) {
       const errorText = await response.text();
-      let errorMessage = `API Error ${response.status}: Failed to reach predictor.`;
-      
-      // Attempt to parse FastAPI's detailed JSON error if available
-      try {
-        const errorJson = JSON.parse(errorText);
-        if (errorJson.detail) {
-          errorMessage = typeof errorJson.detail === 'string' 
-            ? errorJson.detail 
-            : JSON.stringify(errorJson.detail);
-        }
-      } catch (parseError) {
-        // Fallback to raw text if the server threw a non-JSON error (e.g., 502 Bad Gateway)
-        errorMessage = `API Error ${response.status}: ${errorText}`;
-      }
-      throw new Error(errorMessage);
+      throw new Error(`API Error ${response.status}: ${errorText}`);
     }
 
-    // 4. Parse the successful response
+    // Your main.py returns the PredictionResponse class
     const result = await response.json();
 
-    // 5. Safe variable mapping (Targeting 'probability_of_churn' specifically)
-    const probability = result.probability_of_churn ?? result.churn_probability ?? result.probability ?? 0;
-    
-    // 6. Safe Risk Level casting
-    let riskLevel: "Low" | "Medium" | "High" = "Low";
-    if (result.risk_level === "High" || result.risk_level === "Medium" || result.risk_level === "Low") {
-      riskLevel = result.risk_level;
-    } else {
-      // Fallback calculation if backend doesn't provide it
-      riskLevel = probability < 0.35 ? "Low" : probability < 0.65 ? "Medium" : "High";
-    }
-
     return {
-      churn_probability: probability,
-      predicted_churn: probability >= 0.5,
-      risk_level: riskLevel,
-      recommendations: result.recommendations || [],
+      churn_probability: result.probability_of_churn,
+      predicted_churn: result.probability_of_churn >= 0.5,
+      // Your main.py calculates risk_level as either 'Low' or 'High'
+      risk_level: result.risk_level as "Low" | "Medium" | "High",
+      recommendations: result.recommendations,
     };
 
   } catch (error) {
-    console.error("Critical error during churn prediction:", error);
+    console.error("Error during churn prediction:", error);
     throw error;
   }
 }
