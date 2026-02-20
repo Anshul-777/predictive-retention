@@ -1,0 +1,12 @@
+// requirements.txt
+pandas
+numpy
+scikit-learn
+seaborn
+matplotlib
+imblearn
+lightgbm
+joblib
+fastapi
+pydantic
+uvicorn
