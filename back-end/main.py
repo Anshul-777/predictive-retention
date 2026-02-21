@@ -68,7 +68,7 @@ def preprocess_input(customer_data: CustomerData) -> pd.DataFrame:
     addon_cols = ['OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
 
     for col in addon_cols:
-        user_df.loc[:, col] = user_df[col].map(addon_cols_map).astype(int)
+        user_df.loc[:, col] = user_df[col].map(addon_cols_map)
 
     user_df.loc[:, 'Num_Addon_Services'] = user_df[addon_cols].sum(axis=1)
 
