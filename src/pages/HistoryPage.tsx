@@ -7,31 +7,15 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  History,
-  Search,
-  ArrowUpDown,
-  ExternalLink,
-  RefreshCw,
-  Loader2,
-  BarChart3,
-  AlertTriangle,
-  CheckCircle2,
+  History, Search, ArrowUpDown, ExternalLink, RefreshCw, Loader2,
+  BarChart3, AlertTriangle, CheckCircle2,
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -45,7 +29,6 @@ interface PredictionRow {
   churn_probability: number;
   predicted_churn_status: string;
   prediction_timestamp: string;
-  // All other fields for reload
   senior_citizen: number;
   partner: string;
   dependents: string;
@@ -91,17 +74,11 @@ export default function HistoryPage() {
     }
   };
 
-  useEffect(() => {
-    fetchRows();
-  }, [sortField, sortDir]);
+  useEffect(() => { fetchRows(); }, [sortField, sortDir]);
 
   const handleSort = (field: SortField) => {
-    if (field === sortField) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
-    } else {
-      setSortField(field);
-      setSortDir("desc");
-    }
+    if (field === sortField) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    else { setSortField(field); setSortDir("desc"); }
   };
 
   const handleReload = (row: PredictionRow) => {
@@ -114,7 +91,7 @@ export default function HistoryPage() {
       contract: row.contract,
       paymentMethod: row.payment_method,
       paperlessBilling: row.paperless_billing,
-      monthlyCharges: row.monthly_charges ?? 65,
+      monthlyCharges: row.monthly_charges ?? 0,
       phoneService: row.phone_service,
       multipleLines: row.multiple_lines,
       internetService: row.internet_service,
@@ -144,32 +121,24 @@ export default function HistoryPage() {
     return matchesSearch && matchesRisk;
   });
 
-  // Summary stats
   const highRiskCount = rows.filter((r) => r.predicted_churn_status === "High").length;
-  const avgProbability =
-    rows.length > 0
-      ? rows.reduce((sum, r) => sum + (r.churn_probability ?? 0), 0) / rows.length
-      : 0;
+  const avgProbability = rows.length > 0 ? rows.reduce((sum, r) => sum + (r.churn_probability ?? 0), 0) / rows.length : 0;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="container mx-auto px-6 py-8 flex-1 animate-fade-slide-up">
-        <div className="mb-8 flex items-center justify-between gap-4">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 flex-1 animate-fade-slide-up">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-              <History className="h-6 w-6 text-primary" />
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
+              <History className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               Prediction History
             </h1>
-            <p className="text-muted-foreground mt-1">
-              Browse all past churn predictions. Click any row to reload inputs into the dashboard.
+            <p className="text-sm text-muted-foreground mt-1">
+              Browse past predictions. Click any row to reload inputs.
             </p>
           </div>
-          <Button variant="outline" onClick={fetchRows} disabled={isLoading} className="shrink-0">
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <RefreshCw className="h-4 w-4" />
-            )}
+          <Button variant="outline" onClick={fetchRows} disabled={isLoading} className="shrink-0 self-start">
+            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
             Refresh
           </Button>
         </div>
@@ -183,7 +152,7 @@ export default function HistoryPage() {
                   <BarChart3 className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Predictions</p>
+                  <p className="text-sm text-muted-foreground">Total</p>
                   <p className="text-2xl font-bold text-foreground">{rows.length}</p>
                 </div>
               </div>
@@ -209,10 +178,8 @@ export default function HistoryPage() {
                   <CheckCircle2 className="h-5 w-5" style={{ color: "hsl(var(--churn-low))" }} />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Avg. Churn Score</p>
-                  <p className="text-2xl font-bold text-foreground">
-                    {(avgProbability * 100).toFixed(1)}%
-                  </p>
+                  <p className="text-sm text-muted-foreground">Avg. Score</p>
+                  <p className="text-2xl font-bold text-foreground">{(avgProbability * 100).toFixed(1)}%</p>
                 </div>
               </div>
             </CardContent>
@@ -223,19 +190,14 @@ export default function HistoryPage() {
         <div className="flex flex-col sm:flex-row gap-3 mb-5">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search by contract, internet service, gender..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-9"
-            />
+            <Input placeholder="Search by contract, internet, gender..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
           </div>
           <Select value={riskFilter} onValueChange={setRiskFilter}>
             <SelectTrigger className="w-full sm:w-40">
               <SelectValue placeholder="Risk Level" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="All">All Risk Levels</SelectItem>
+              <SelectItem value="All">All Levels</SelectItem>
               <SelectItem value="High">High Risk</SelectItem>
               <SelectItem value="Medium">Medium Risk</SelectItem>
               <SelectItem value="Low">Low Risk</SelectItem>
@@ -252,79 +214,54 @@ export default function HistoryPage() {
                 <span className="text-muted-foreground">Loading predictions...</span>
               </div>
             ) : filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-20 gap-3 text-center">
+              <div className="flex flex-col items-center justify-center py-20 gap-3 text-center px-4">
                 <History className="h-12 w-12 text-muted-foreground/40" />
                 <p className="font-medium text-foreground">No predictions found</p>
                 <p className="text-sm text-muted-foreground">
-                  {rows.length === 0
-                    ? "Run your first prediction from the Dashboard and save it."
-                    : "No results match your current filters."}
+                  {rows.length === 0 ? "Run your first prediction and save it." : "No results match your filters."}
                 </p>
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-secondary/50">
-                    <TableHead
-                      className="cursor-pointer hover:text-foreground select-none"
-                      onClick={() => handleSort("prediction_timestamp")}
-                    >
-                      <span className="flex items-center gap-1">
-                        Date <ArrowUpDown className="h-3 w-3" />
-                      </span>
-                    </TableHead>
-                    <TableHead>Gender</TableHead>
-                    <TableHead
-                      className="cursor-pointer hover:text-foreground select-none"
-                      onClick={() => handleSort("tenure")}
-                    >
-                      <span className="flex items-center gap-1">
-                        Tenure <ArrowUpDown className="h-3 w-3" />
-                      </span>
-                    </TableHead>
-                    <TableHead>Contract</TableHead>
-                    <TableHead>Internet</TableHead>
-                    <TableHead
-                      className="cursor-pointer hover:text-foreground select-none"
-                      onClick={() => handleSort("churn_probability")}
-                    >
-                      <span className="flex items-center gap-1">
-                        Score <ArrowUpDown className="h-3 w-3" />
-                      </span>
-                    </TableHead>
-                    <TableHead>Risk</TableHead>
-                    <TableHead className="w-10" />
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filtered.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      className="cursor-pointer hover:bg-accent/50 transition-colors"
-                      onClick={() => handleReload(row)}
-                    >
-                      <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
-                        {format(new Date(row.prediction_timestamp), "MMM d, yyyy HH:mm")}
-                      </TableCell>
-                      <TableCell className="text-sm">{row.gender}</TableCell>
-                      <TableCell className="text-sm tabular-nums">{row.tenure} mo</TableCell>
-                      <TableCell className="text-sm">{row.contract}</TableCell>
-                      <TableCell className="text-sm">{row.internet_service}</TableCell>
-                      <TableCell className="text-sm font-semibold tabular-nums">
-                        {row.churn_probability != null
-                          ? `${(row.churn_probability * 100).toFixed(1)}%`
-                          : "—"}
-                      </TableCell>
-                      <TableCell>
-                        <RiskBadge level={getRiskLevel(row.predicted_churn_status)} size="sm" />
-                      </TableCell>
-                      <TableCell>
-                        <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-secondary/50">
+                      <TableHead className="cursor-pointer hover:text-foreground select-none" onClick={() => handleSort("prediction_timestamp")}>
+                        <span className="flex items-center gap-1">Date <ArrowUpDown className="h-3 w-3" /></span>
+                      </TableHead>
+                      <TableHead>Gender</TableHead>
+                      <TableHead className="cursor-pointer hover:text-foreground select-none" onClick={() => handleSort("tenure")}>
+                        <span className="flex items-center gap-1">Tenure <ArrowUpDown className="h-3 w-3" /></span>
+                      </TableHead>
+                      <TableHead>Contract</TableHead>
+                      <TableHead className="hidden sm:table-cell">Internet</TableHead>
+                      <TableHead className="cursor-pointer hover:text-foreground select-none" onClick={() => handleSort("churn_probability")}>
+                        <span className="flex items-center gap-1">Score <ArrowUpDown className="h-3 w-3" /></span>
+                      </TableHead>
+                      <TableHead>Risk</TableHead>
+                      <TableHead className="w-10" />
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {filtered.map((row) => (
+                      <TableRow key={row.id} className="cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => handleReload(row)}>
+                        <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                          {format(new Date(row.prediction_timestamp), "MMM d, yyyy")}
+                        </TableCell>
+                        <TableCell className="text-sm">{row.gender}</TableCell>
+                        <TableCell className="text-sm tabular-nums">{row.tenure} mo</TableCell>
+                        <TableCell className="text-sm">{row.contract}</TableCell>
+                        <TableCell className="text-sm hidden sm:table-cell">{row.internet_service}</TableCell>
+                        <TableCell className="text-sm font-semibold tabular-nums">
+                          {row.churn_probability != null ? `${(row.churn_probability * 100).toFixed(1)}%` : "—"}
+                        </TableCell>
+                        <TableCell><RiskBadge level={getRiskLevel(row.predicted_churn_status)} size="sm" /></TableCell>
+                        <TableCell><ExternalLink className="h-3.5 w-3.5 text-muted-foreground" /></TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             )}
           </CardContent>
         </Card>

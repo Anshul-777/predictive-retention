@@ -6,51 +6,35 @@
 
 @layer base {
   :root {
-    /* Off-white background for Light Clean SaaS */
     --background: 210 40% 98%;
     --foreground: 224 71% 4%;
-
     --card: 0 0% 100%;
     --card-foreground: 224 71% 4%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 224 71% 4%;
-
-    /* Deep Indigo as primary */
     --primary: 243 75% 59%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 220 14% 96%;
     --secondary-foreground: 224 71% 4%;
-
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
-
     --accent: 243 75% 95%;
     --accent-foreground: 243 75% 30%;
-
-    /* Crimson Red for high-risk */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 243 75% 59%;
-
     --radius: 0.625rem;
-
-    /* Custom semantic tokens */
-    --churn-low: 158 64% 40%;        /* Emerald Green */
+    --churn-low: 158 64% 40%;
     --churn-low-bg: 158 64% 95%;
-    --churn-medium: 38 92% 50%;      /* Amber */
+    --churn-medium: 38 92% 50%;
     --churn-medium-bg: 38 92% 95%;
-    --churn-high: 0 84% 60%;         /* Crimson Red */
+    --churn-high: 0 84% 60%;
     --churn-high-bg: 0 84% 95%;
-
     --gradient-primary: linear-gradient(135deg, hsl(243 75% 59%), hsl(262 83% 65%));
     --shadow-card: 0 1px 3px 0 hsl(224 71% 4% / 0.08), 0 1px 2px -1px hsl(224 71% 4% / 0.08);
     --shadow-elevated: 0 10px 30px -10px hsl(243 75% 59% / 0.25);
-
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -81,6 +65,8 @@
     --border: 217 33% 17%;
     --input: 217 33% 17%;
     --ring: 243 75% 65%;
+    --gradient-primary: linear-gradient(135deg, hsl(243 75% 65%), hsl(262 83% 70%));
+    --shadow-elevated: 0 10px 30px -10px hsl(243 75% 65% / 0.35);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -89,6 +75,44 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .rainbow {
+    --background: 230 25% 7%;
+    --foreground: 210 40% 96%;
+    --card: 230 30% 10%;
+    --card-foreground: 210 40% 96%;
+    --popover: 230 30% 10%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 270 95% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 25% 15%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 230 20% 18%;
+    --muted-foreground: 220 15% 60%;
+    --accent: 260 60% 20%;
+    --accent-foreground: 270 95% 85%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 260 30% 20%;
+    --input: 260 30% 20%;
+    --ring: 270 95% 65%;
+    --gradient-primary: linear-gradient(135deg, hsl(270 95% 65%), hsl(200 100% 60%), hsl(330 90% 60%));
+    --shadow-elevated: 0 10px 40px -10px hsl(270 95% 65% / 0.4);
+    --churn-low: 158 64% 50%;
+    --churn-low-bg: 158 64% 15%;
+    --churn-medium: 38 92% 55%;
+    --churn-medium-bg: 38 80% 15%;
+    --churn-high: 0 84% 60%;
+    --churn-high-bg: 0 70% 15%;
+    --sidebar-background: 230 25% 7%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 270 95% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 260 60% 20%;
+    --sidebar-accent-foreground: 270 95% 85%;
+    --sidebar-border: 260 30% 20%;
+    --sidebar-ring: 270 95% 65%;
   }
 }
 
@@ -104,7 +128,7 @@
 }
 
 /* ============================================================
-   Animation Keyframes — 15 distinct animation types
+   Animation Keyframes
    ============================================================ */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -147,11 +171,6 @@
   to   { transform: rotate(360deg); }
 }
 
-@keyframes bounceDot {
-  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-  40%            { transform: scale(1.2); opacity: 1; }
-}
-
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -167,15 +186,27 @@
   50%       { box-shadow: 0 0 20px 4px hsl(243 75% 59% / 0.25); }
 }
 
-@keyframes borderFlow {
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes rainbowShift {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes gradientFlow {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-@keyframes countUp {
-  from { opacity: 0; transform: scale(0.7); }
-  to   { opacity: 1; transform: scale(1); }
+@keyframes borderGlow {
+  0%, 100% { border-color: hsl(270 95% 65% / 0.3); }
+  25%       { border-color: hsl(200 100% 60% / 0.3); }
+  50%       { border-color: hsl(330 90% 60% / 0.3); }
+  75%       { border-color: hsl(150 80% 50% / 0.3); }
 }
 
 /* Utility animation classes */
@@ -189,6 +220,25 @@
 .animate-slide-down      { animation: slideDown     0.4s ease both; }
 .animate-slide-up        { animation: slideUp       0.4s ease both; }
 
+/* Rainbow-specific animations */
+.rainbow .animate-rainbow-border { animation: borderGlow 4s ease-in-out infinite; }
+.rainbow .rainbow-gradient-text {
+  background: linear-gradient(90deg, hsl(270 95% 65%), hsl(200 100% 60%), hsl(330 90% 60%), hsl(150 80% 50%), hsl(270 95% 65%));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 6s ease infinite;
+}
+.rainbow .rainbow-bg {
+  background: linear-gradient(135deg, hsl(270 95% 65% / 0.15), hsl(200 100% 60% / 0.15), hsl(330 90% 60% / 0.15));
+  background-size: 400% 400%;
+  animation: gradientFlow 8s ease infinite;
+}
+.rainbow .rainbow-glow {
+  box-shadow: 0 0 30px -5px hsl(270 95% 65% / 0.3), 0 0 60px -15px hsl(200 100% 60% / 0.2);
+}
+
 /* Hover utilities */
 .hover-lift {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -196,10 +246,6 @@
 .hover-lift:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 32px -8px hsl(243 75% 59% / 0.2);
-}
-
-.hover-glow:hover {
-  animation: glowPulse 1.5s ease-in-out infinite;
 }
 
 /* Staggered children utility */
@@ -210,3 +256,10 @@
 .stagger-children > *:nth-child(5) { animation-delay: 320ms; }
 .stagger-children > *:nth-child(6) { animation-delay: 400ms; }
 
+/* Scrollbar styling for rainbow */
+.rainbow ::-webkit-scrollbar { width: 8px; }
+.rainbow ::-webkit-scrollbar-track { background: hsl(230 25% 10%); }
+.rainbow ::-webkit-scrollbar-thumb { 
+  background: linear-gradient(180deg, hsl(270 95% 65%), hsl(200 100% 60%));
+  border-radius: 4px;
+}

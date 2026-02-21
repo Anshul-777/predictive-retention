@@ -11,11 +11,11 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-card">
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div className="space-y-3">
-            <Link to="/" className="flex items-center gap-2.5 font-bold text-lg group">
+            <Link to="/" className="flex items-center gap-2 font-bold text-lg group">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary transition-transform duration-300 group-hover:scale-110">
                 <BarChart3 className="h-4 w-4 text-primary-foreground" />
               </div>
@@ -23,18 +23,29 @@ export default function Footer() {
               <span className="text-xs font-medium bg-accent text-accent-foreground px-1.5 py-0.5 rounded-md">AI</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Customer churn prediction powered by LightGBM machine learning. Built with React, FastAPI, and Lovable Cloud.
+              Customer churn prediction powered by LightGBM machine learning. Built with React, FastAPI, and cloud infrastructure.
             </p>
-            <a
-              href="https://github.com/Hari31416"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 group"
-            >
-              <Github className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-              github.com/Hari31416
-              <ExternalLink className="h-3 w-3 opacity-60" />
-            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/Anshul-777/predictive-retention/tree/main"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 group"
+              >
+                <Github className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                GitHub
+                <ExternalLink className="h-3 w-3 opacity-60" />
+              </a>
+              <a
+                href="https://anshulportfolio-m86cp76op-god-s-projects-04ef3be1.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 group"
+              >
+                Portfolio
+                <ExternalLink className="h-3 w-3 opacity-60" />
+              </a>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -62,7 +73,7 @@ export default function Footer() {
                 "LightGBM (Gradient Boosting)",
                 "FastAPI + Python",
                 "React + TypeScript + Vite",
-                "Lovable Cloud (Database + Edge Functions)",
+                "Cloud Database + Edge Functions",
                 "Render (ML Backend Hosting)",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2">
@@ -76,7 +87,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground flex items-center gap-1.5">
-            Built with <Heart className="h-3.5 w-3.5 text-red-500 fill-red-500" /> using LightGBM · Lovable Cloud · React
+            Built with <Heart className="h-3.5 w-3.5 text-red-500 fill-red-500" /> by Anshul · LightGBM · React
           </p>
           <a
             href="https://customer-churn-predictor-zdez.onrender.com/docs"
