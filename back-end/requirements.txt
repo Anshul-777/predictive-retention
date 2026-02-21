@@ -1,7 +1,7 @@
 setuptools
 pandas>=2.2.2
 numpy
-scikit-learn
+scikit-learn==1.6.1
 seaborn
 matplotlib
 imblearn
