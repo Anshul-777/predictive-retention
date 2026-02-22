@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import Footer from "@/components/Footer";
+import StarReview from "@/components/StarReview";
 import heroBg from "@/assets/hero-bg.jpg";
 
 // Reusable animated reveal wrapper
@@ -196,14 +197,24 @@ export default function LandingPage() {
                   View Source
                 </Button>
               </a>
-              <a href="https://anshulportfolio-m86cp76op-god-s-projects-04ef3be1.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <a href="https://portfolio-alpha-lac-41.vercel.app/" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="lg" className="h-12 px-8 text-base hover:scale-105 transition-transform duration-200 gap-2">
                   <ExternalLink className="h-5 w-5" />
                   Visit Portfolio
                 </Button>
               </a>
             </div>
-          </div>
+            </div>
+            <a
+              href="https://customer-churn-predictor-zdez.onrender.com/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-4 text-xs text-muted-foreground hover:text-primary transition-colors"
+              style={{ animation: "fadeSlideUp 0.9s cubic-bezier(0.4,0,0.2,1) 0.5s both" }}
+            >
+              <Code2 className="h-3 w-3" />
+              Explore API Docs →
+            </a>
 
           {/* GitHub-style profile card */}
           <Reveal className="mt-16 md:mt-20 mx-auto max-w-5xl" direction="scale" delay={200}>
@@ -468,7 +479,7 @@ export default function LandingPage() {
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
-              <a href="https://anshulportfolio-m86cp76op-god-s-projects-04ef3be1.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <a href="https://portfolio-alpha-lac-41.vercel.app/" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="lg" className="h-12 px-8 text-base hover:scale-105 transition-transform duration-200 gap-2">
                   Visit Portfolio
                   <ExternalLink className="h-4 w-4" />
@@ -479,6 +490,7 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <StarReview />
       <Footer />
     </div>
   );

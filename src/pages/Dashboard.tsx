@@ -10,6 +10,7 @@ import ChurnGauge from "@/components/ChurnGauge";
 import RiskBadge from "@/components/RiskBadge";
 import InsightsCard from "@/components/InsightsCard";
 import Footer from "@/components/Footer";
+import StarReview from "@/components/StarReview";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -315,15 +316,25 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 flex-1">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
-            <TrendingDown className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-            Churn Predictor
-          </h1>
-          <p className="text-sm sm:text-base text-muted-foreground mt-1">
-            Fill in the customer profile below to generate an instant churn probability score.
-          </p>
-        </div>
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
+                <TrendingDown className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                Churn Predictor
+              </h1>
+              <p className="text-sm sm:text-base text-muted-foreground mt-1">
+                Fill in the customer profile below to generate an instant churn probability score.
+              </p>
+            </div>
+            <a
+              href="https://customer-churn-predictor-zdez.onrender.com/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-primary border border-primary/20 bg-accent rounded-full px-3 py-1.5 hover:bg-primary/10 transition-colors"
+            >
+              📄 API Docs
+            </a>
+          </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="animate-fade-slide-up">
           <div className="flex flex-col lg:flex-row gap-6 items-start">
@@ -590,6 +601,7 @@ export default function Dashboard() {
           </div>
         </form>
       </div>
+      <StarReview />
       <Footer />
     </div>
   );

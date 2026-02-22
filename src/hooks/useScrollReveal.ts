@@ -7,7 +7,7 @@ interface UseScrollRevealOptions {
 }
 
 export function useScrollReveal(options: UseScrollRevealOptions = {}) {
-  const { threshold = 0.1, rootMargin = "0px 0px -60px 0px", once = true } = options;
+  const { threshold = 0.1, rootMargin = "0px 0px -60px 0px", once = false } = options;
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -20,7 +20,7 @@ export function useScrollReveal(options: UseScrollRevealOptions = {}) {
         if (entry.isIntersecting) {
           setIsVisible(true);
           if (once) observer.disconnect();
-        } else if (!once) {
+        } else {
           setIsVisible(false);
         }
       },

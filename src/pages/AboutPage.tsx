@@ -6,6 +6,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import Footer from "@/components/Footer";
+import StarReview from "@/components/StarReview";
+import FeedbackForm from "@/components/FeedbackForm";
 
 function RevealSection({
   children,
@@ -120,6 +122,11 @@ export default function AboutPage() {
               <a href="https://github.com/Anshul-777/predictive-retention/tree/main" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="lg" className="h-12 px-8 font-semibold gap-2">
                   <Github className="h-4 w-4" /> View on GitHub
+                </Button>
+              </a>
+              <a href="https://portfolio-alpha-lac-41.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="lg" className="h-12 px-8 font-semibold gap-2">
+                  <ExternalLink className="h-4 w-4" /> Visit Portfolio
                 </Button>
               </a>
             </div>
@@ -245,6 +252,19 @@ export default function AboutPage() {
         </RevealSection>
       </section>
 
+      {/* Feedback & Contacts */}
+      <section className="container mx-auto px-4 sm:px-6 py-16 md:py-20">
+        <RevealSection className="text-center mb-14">
+          <h2 className="text-3xl font-bold text-foreground mb-4">Connect & Feedback</h2>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            Have questions, suggestions, or want to collaborate? Reach out below.
+          </p>
+        </RevealSection>
+        <RevealSection className="max-w-3xl mx-auto">
+          <FeedbackForm />
+        </RevealSection>
+      </section>
+
       {/* CTA */}
       <section className="border-t border-border bg-card">
         <div className="container mx-auto px-4 sm:px-6 py-16 md:py-20 text-center">
@@ -259,7 +279,7 @@ export default function AboutPage() {
                   Launch Predictor <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <a href="https://anshulportfolio-m86cp76op-god-s-projects-04ef3be1.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <a href="https://portfolio-alpha-lac-41.vercel.app/" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="lg" className="h-12 px-8 gap-2">
                   Visit Portfolio <ExternalLink className="h-4 w-4" />
                 </Button>
@@ -269,6 +289,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <StarReview />
       <Footer />
     </div>
   );

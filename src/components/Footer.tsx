@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BarChart3, Github, ExternalLink, Heart } from "lucide-react";
+import { BarChart3, Github, ExternalLink } from "lucide-react";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -37,7 +37,7 @@ export default function Footer() {
                 <ExternalLink className="h-3 w-3 opacity-60" />
               </a>
               <a
-                href="https://anshulportfolio-m86cp76op-god-s-projects-04ef3be1.vercel.app/"
+                href="https://portfolio-alpha-lac-41.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 group"
@@ -86,8 +86,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground flex items-center gap-1.5">
-            Built with <Heart className="h-3.5 w-3.5 text-red-500 fill-red-500" /> by Anshul · LightGBM · React
+          <p className="text-sm text-muted-foreground">
+            Built by Anshul · LightGBM · React
           </p>
           <a
             href="https://customer-churn-predictor-zdez.onrender.com/docs"
